@@ -19,10 +19,13 @@ struct ContentView: View {
                             .bold()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .aspectRatio(1, contentMode: .fit)
+                            .background(Color.white)
                     }
                 }
             }
         }
+        .background(Color.black)
+        .padding()
     }
 }
 
