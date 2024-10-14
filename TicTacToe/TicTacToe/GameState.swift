@@ -5,6 +5,11 @@ class GameState: ObservableObject
 {
     @Published var board = [[Cell]]()
     @Published var turn = Tile.Cross
+    @Published var noughtScore = 0
+    @Published var crossScore = 0
+    @Published var showAlert = false
+    @Published var alertMessage = "Draw"
+
     
     init()
     {
@@ -19,7 +24,28 @@ class GameState: ObservableObject
         }
         
         board[row][column].tile = turn == Tile.Cross ? Tile.Cross : Tile.Nought
-        turn = turn == Tile.Cross ? Tile.Nought : Tile.Cross
+        
+        if(checkVictory())
+        {
+            if(turn == Tile.Cross)
+            {
+                crossScore += 1
+            }
+            else
+            {
+                noughtScore += 1
+            }
+        }
+        else
+        {
+            turn = turn == Tile.Cross ? Tile.Nought : Tile.Cross
+
+        }
+    }
+    
+    func checkVictory() -> Bool
+    {
+        return false
     }
     
     func resetBoard()
