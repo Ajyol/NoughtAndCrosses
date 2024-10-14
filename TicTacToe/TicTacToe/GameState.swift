@@ -19,7 +19,7 @@ class GameState: ObservableObject
         }
         
         board[row][column].tile = turn == Tile.Cross ? Tile.Cross : Tile.Nought
-        
+        turn = turn == Tile.Cross ? Tile.Nought : Tile.Cross
     }
     
     func resetBoard()
