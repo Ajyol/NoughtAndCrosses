@@ -48,7 +48,50 @@ class GameState: ObservableObject
     
     func checkVictory() -> Bool
     {
+        //vertical victory
+        if isTurnTile(0, 0) && isTurnTile(1, 0) && isTurnTile(2, 0)
+        {
+            return true
+        }
+        if isTurnTile(0, 1) && isTurnTile(1, 1) && isTurnTile(2, 1)
+        {
+            return true
+        }
+        if isTurnTile(0, 2) && isTurnTile(1, 2) && isTurnTile(2, 2)
+        {
+            return true
+        }
+        
+        //horizontal victory
+        if isTurnTile(0, 0) && isTurnTile(0, 1) && isTurnTile(0, 2)
+        {
+            return true
+        }
+        if isTurnTile(1, 1) && isTurnTile(1, 2) && isTurnTile(1, 0)
+        {
+            return true
+        }
+        if isTurnTile(2, 0) && isTurnTile(2, 1) && isTurnTile(2, 2)
+        {
+            return true
+        }
+        
+        //cross victory
+        if isTurnTile(0, 0) && isTurnTile(1, 1) && isTurnTile(2, 2)
+        {
+            return true
+        }
+        if isTurnTile(0, 2) && isTurnTile(1, 1) && isTurnTile(2, 0)
+        {
+            return true
+        }
+
         return false
+    }
+    
+    func isTurnTile(_ row: Int, _ column: Int) -> Bool
+    {
+        return board[row][column].tile == turn
     }
     
     func resetBoard()
