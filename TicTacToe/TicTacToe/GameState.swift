@@ -108,4 +108,20 @@ class GameState: ObservableObject
         }
         board = newBoard
     }
+    
+    func botMove() {
+        var emptyCells = [(Int, Int)]()
+        for row in 0..<3 {
+            for column in 0..<3 {
+                if board[row][column].tile == .Empty {
+                    emptyCells.append((row, column))
+                }
+            }
+        }
+        
+        if let randomMove = emptyCells.randomElement() {
+            placeTile(randomMove.0, randomMove.1)
+        }
+    }
+
 }
