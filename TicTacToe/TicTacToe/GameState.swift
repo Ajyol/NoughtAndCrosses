@@ -45,7 +45,6 @@ class GameState: ObservableObject {
     }
 
     func checkVictory() -> Bool {
-        // Vertical, horizontal, and diagonal victory checks
         let victoryConditions = [
             [(0, 0), (1, 0), (2, 0)], [(0, 1), (1, 1), (2, 1)], [(0, 2), (1, 2), (2, 2)], // vertical
             [(0, 0), (0, 1), (0, 2)], [(1, 0), (1, 1), (1, 2)], [(2, 0), (2, 1), (2, 2)], // horizontal
@@ -58,6 +57,13 @@ class GameState: ObservableObject {
     }
 
     func botMove() {
+        // Try to block the player's winning move
+        if let blockingMove = findBlockingMove(for: .Cross) {
+            placeTile(blockingMove.0, blockingMove.1)
+            return
+        }
+        
+        // Otherwise, pick a random move
         var emptyCells = [(Int, Int)]()
         for row in 0..<3 {
             for column in 0..<3 {
@@ -66,10 +72,30 @@ class GameState: ObservableObject {
                 }
             }
         }
-
+        
         if let randomMove = emptyCells.randomElement() {
             placeTile(randomMove.0, randomMove.1)
         }
+    }
+
+    // Helper function to find a blocking move for the specified tile
+    private func findBlockingMove(for tile: Tile) -> (Int, Int)? {
+        let victoryConditions = [
+            [(0, 0), (1, 0), (2, 0)], [(0, 1), (1, 1), (2, 1)], [(0, 2), (1, 2), (2, 2)], // vertical
+            [(0, 0), (0, 1), (0, 2)], [(1, 0), (1, 1), (1, 2)], [(2, 0), (2, 1), (2, 2)], // horizontal
+            [(0, 0), (1, 1), (2, 2)], [(0, 2), (1, 1), (2, 0)]  // diagonal
+        ]
+
+        for condition in victoryConditions {
+            let tiles = condition.map { (row, col) in board[row][col].tile }
+            if tiles.filter({ $0 == tile }).count == 2 && tiles.contains(.Empty) {
+                if let emptyIndex = tiles.firstIndex(of: .Empty) {
+                    let (row, col) = condition[emptyIndex]
+                    return (row, col)
+                }
+            }
+        }
+        return nil
     }
 
     func resetBoard() {

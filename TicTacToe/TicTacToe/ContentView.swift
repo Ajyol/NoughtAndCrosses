@@ -27,7 +27,7 @@ struct ContentView: View {
                                     
                                     
                                     if isBotGame && !gameState.showAlert {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             gameState.botMove()
                                         }
                                     }
