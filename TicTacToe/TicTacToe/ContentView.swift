@@ -25,9 +25,11 @@ struct ContentView: View {
                                 if cell.tile == .Empty {
                                     gameState.placeTile(row, column)
                                     
-                                    // If playing with bot, make bot's move after player's turn
+                                    
                                     if isBotGame && !gameState.showAlert {
-                                        gameState.botMove()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            gameState.botMove()
+                                        }
                                     }
                                 }
                             }
