@@ -16,7 +16,7 @@ struct ContentView: View {
                     Text("\(gameState.crossScore)")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(.black) // Crosses score in black
+                        .foregroundColor(.black)
                 }
                 Spacer()
                 VStack {
@@ -25,7 +25,7 @@ struct ContentView: View {
                     Text("\(gameState.noughtScore)")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(.red) // Noughts score in red
+                        .foregroundColor(.red) 
                 }
             }
             .padding()
